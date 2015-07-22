@@ -1914,6 +1914,7 @@ namespace Microsoft.CodeAnalysis.CSharp
         public static MethodDeclarationSyntax MethodDeclaration(
             SyntaxList<AttributeListSyntax> attributeLists,
             SyntaxTokenList modifiers,
+            SyntaxToken refKeyword,
             TypeSyntax returnType,
             ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier,
             SyntaxToken identifier,
@@ -1926,6 +1927,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             return SyntaxFactory.MethodDeclaration(
                 attributeLists,
                 modifiers,
+                refKeyword,
                 returnType,
                 explicitInterfaceSpecifier,
                 identifier,
@@ -1985,7 +1987,7 @@ namespace Microsoft.CodeAnalysis.CSharp
             SyntaxList<AttributeListSyntax> attributeLists,
             SyntaxTokenList modifiers,
             TypeSyntax type,
-            ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier,
+            ExplicitInterfaceSpecifierSyntax explicitInterfaceSpecifier, 
             BracketedParameterListSyntax parameterList,
             AccessorListSyntax accessorList)
         {
