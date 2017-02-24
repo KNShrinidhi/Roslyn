@@ -42,6 +42,7 @@ try
     {
         "dev15.0.x" { } 
         "master" { } 
+        "dev_pilchie_dpl" { }
         default
         {
             if (-not $test)
