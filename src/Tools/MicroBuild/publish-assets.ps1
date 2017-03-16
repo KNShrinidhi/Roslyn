@@ -1,5 +1,5 @@
 <#
-.SYNOPSIS
+SYNOPSIS
 Performs any post-test actions needed on the Roslyn build systems.
 
 .PARAMETER UploadNuGets
@@ -44,6 +44,7 @@ try
         "dev15.1.x" { } 
         "master" { } 
         "dev_pilchie_Fix389698" { }
+        "dev_pilchie_Fix17570" { }
         default
         {
             if (-not $test)
