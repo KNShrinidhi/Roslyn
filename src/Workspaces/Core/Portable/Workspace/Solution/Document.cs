@@ -75,7 +75,6 @@ namespace Microsoft.CodeAnalysis
             if (_syntaxTreeResultTask != null)
             {
                 syntaxTree = _syntaxTreeResultTask.Result;
-                return true;
             }
 
             if (!DocumentState.TryGetSyntaxTree(out syntaxTree))
