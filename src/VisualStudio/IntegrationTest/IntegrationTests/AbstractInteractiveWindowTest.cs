@@ -1,6 +1,7 @@
 ﻿// Copyright (c) Microsoft.  All Rights Reserved.  Licensed under the Apache License, Version 2.0.  See License.txt in the project root for license information.
 
 using System;
+using System.Linq;
 using Microsoft.CodeAnalysis.Shared.TestHooks;
 using Microsoft.VisualStudio.IntegrationTest.Utilities;
 using Microsoft.VisualStudio.IntegrationTest.Utilities.OutOfProcess;
@@ -62,13 +63,13 @@ namespace Roslyn.VisualStudio.IntegrationTests
         protected void InsertCode(string text)
             => InteractiveWindow.InsertCode(text);
 
-        protected void PlaceCaret(string text, int charsOffset = 0)
+        protected void PlaceCaret(string text, int charsOffset = 0, int occurrence = 0, bool extendSelection = false, bool selectBlock = false)
               => InteractiveWindow.PlaceCaret(
                   text, 
-                  charsOffset: charsOffset, 
-                  occurrence: 0, 
-                  extendSelection: false, 
-                  selectBlock: false);
+                  charsOffset, 
+                  occurrence, 
+                  extendSelection, 
+                  selectBlock);
 
         protected void VerifyLastReplOutput(string expectedReplOutput)
         {
@@ -80,6 +81,12 @@ namespace Roslyn.VisualStudio.IntegrationTests
         {
             var lastReplInput = InteractiveWindow.GetLastReplInput();
             Assert.Equal(expectedReplInput, lastReplInput);
+        }
+
+        protected void VerifyErrorCount(int expectedCount)
+        {
+            var errorTags = InteractiveWindow.GetErrorListErrorCount();
+            Assert.Equal(expectedCount, errorTags);
         }
 
         protected void VerifyCaretPosition(int expectedCaretPosition)
@@ -135,6 +142,15 @@ namespace Roslyn.VisualStudio.IntegrationTests
             foreach (var expectedItem in expectedItems)
             {
                 Assert.Contains(expectedItem, completionItems);
+            }
+        }
+
+        protected void VerifyCompletionUnexpectedItemDoesNotExist(params string[] unexpectedItems)
+        {
+            var completionItems = InteractiveWindow.GetCompletionItems();
+            foreach (var unexpectedItem in unexpectedItems)
+            {
+                Assert.DoesNotContain(unexpectedItem, completionItems);
             }
         }
 
